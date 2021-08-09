@@ -1,0 +1,61 @@
+Список клиентов:
+CREATE TABLE TKlients
+(
+KlientID int not null IDENTITY(1,1),
+KFio char(50) not null,
+KAdres char(50) not null,
+KNom char(20) not null,
+Nlic  char(20) not null,
+CONSTRAINT pk_TKlients PRIMARY KEY(KlientID)
+)
+
+Список мастеров:
+CREATE TABLE TMasters
+(
+MasterID int not null IDENTITY(1,1),
+MFio char(50) not null,
+MNom char(20) not null,
+Stag int,
+CONSTRAINT pk_TMasters PRIMARY KEY(MasterID)
+)
+
+
+
+
+Кондиционеры:
+CREATE TABLE TKondicioneri
+(
+KonID int not null IDENTITY(1,1),
+FirmID int not null,
+Model char(20) not null,
+Price  int not null,
+CONSTRAINT pk_TKondicioneri PRIMARY KEY(KonID),
+FOREIGN KEY(FirmID) REFERENCES TFirma (FirmID)
+)
+
+
+Фирмы:
+CREATE TABLE TFirma
+(
+FirmID int not null IDENTITY(1,1),
+FirmName char(30) not null,
+FirmAdres char(50) not null,
+FirmNom  char(20) not null,
+CONSTRAINT pk_TFirma PRIMARY KEY(FirmID)
+)
+
+
+Заказ на установку:
+CREATE TABLE TUstanovka
+(
+UstID int not null IDENTITY(1,1),
+KlientID int not null,
+KonID int not null,
+MasterID int not null,
+DateUst datetime,
+Summ int,
+CONSTRAINT pk_TUstanovka PRIMARY KEY(UstID),
+FOREIGN KEY(KlientID) REFERENCES TKlients (KlientID),
+FOREIGN KEY(KonID) REFERENCES TKondicioneri (KonID),
+FOREIGN KEY(MasterID) REFERENCES TMasters (MasterID)
+)
